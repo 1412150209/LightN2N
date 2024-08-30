@@ -1,0 +1,44 @@
+[package]
+name = "light-n2n-rc"
+version = "0.1.0"
+description = "Make creating a virtual LAN easier"
+authors = ["lers"]
+edition = "2021"
+license = "MIT"
+
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+
+[lib]
+name = "light_n2n_rc_lib"
+crate-type = ["lib", "cdylib", "staticlib"]
+
+[profile.release]
+codegen-units = 1
+lto = true
+opt-level = 'z'
+strip = true
+
+[build-dependencies]
+tauri-build = { version = "2.0.0-rc", features = [] }
+
+[dependencies]
+tauri = { version = "2.0.0-rc", features = ["tray-icon"] }
+tauri-plugin-shell = "2.0.0-rc"
+serde = { version = "1", features = ["derive"] }
+serde_json = "1"
+log = { version = "0.4.22" }
+ping = { version = "0.5.2" }
+thiserror = { version = "1.0.63" }
+stunclient = { version = "0.4.1" }
+chardet = { version = "0.2.4" }
+encoding_rs = { version = "0.8.34" }
+tauri-plugin-store = "2.0.0-rc.1"
+tauri-plugin-updater = "2.0.0-rc"
+reqwest = { version = "0.12.5", features = ["blocking"] }
+lazy_static = { version = "1.5.0" }
+flexi_logger = { version = "0.28.5" }
+tauri-plugin-process = "2.0.0-rc.0"
+tauri-plugin-dialog = "2.0.0-rc.0"
+
+[target.'cfg(not(any(target_os = "android", target_os = "ios")))'.dependencies]
+tauri-plugin-single-instance = "2.0.0-rc.0"
